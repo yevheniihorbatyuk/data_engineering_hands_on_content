@@ -1,45 +1,48 @@
-- [[#🔧 Основні варіанти розгортання Apache Spark|🔧 Основні варіанти розгортання Apache Spark]]
-- [[#💰 TCO (Total Cost of Ownership) Порівняння|💰 TCO (Total Cost of Ownership) Порівняння]]
-- [[#📊 Рекомендації за обсягом даних|📊 Рекомендації за обсягом даних]]
-- [[#👥 Рекомендації за навичками команди|👥 Рекомендації за навичками команди]]
-- [[#🧩 Де може стояти Spark у архітектурі системи?|🧩 Де може стояти Spark у архітектурі системи?]]
-	- [[#🧩 Де може стояти Spark у архітектурі системи?#1. **Data Ingestion & ETL**|1. **Data Ingestion & ETL**]]
-	- [[#🧩 Де може стояти Spark у архітектурі системи?#2. **Batch Analytics Pipeline**|2. **Batch Analytics Pipeline**]]
-	- [[#🧩 Де може стояти Spark у архітектурі системи?#3. **Streaming Architecture**|3. **Streaming Architecture**]]
-	- [[#🧩 Де може стояти Spark у архітектурі системи?#4. **Lakehouse Pattern**|4. **Lakehouse Pattern**]]
-	- [[#🧩 Де може стояти Spark у архітектурі системи?#5. **ML Pipeline Integration**|5. **ML Pipeline Integration**]]
-- [[#🔁 Альтернативи Apache Spark: повний огляд|🔁 Альтернативи Apache Spark: повний огляд]]
-	- [[#🔁 Альтернативи Apache Spark: повний огляд#🟠 Universal Compute Engines|🟠 Universal Compute Engines]]
-	- [[#🔁 Альтернативи Apache Spark: повний огляд#🟡 Streaming Specialists|🟡 Streaming Specialists]]
-	- [[#🔁 Альтернативи Apache Spark: повний огляд#🟢 OLAP & Analytics Engines|🟢 OLAP & Analytics Engines]]
-	- [[#🔁 Альтернативи Apache Spark: повний огляд#🆕 Emerging Technologies|🆕 Emerging Technologies]]
-- [[#🔗 Ecosystem Integration Matrix|🔗 Ecosystem Integration Matrix]]
-- [[#🏗️ Hybrid Architecture Patterns|🏗️ Hybrid Architecture Patterns]]
-	- [[#🏗️ Hybrid Architecture Patterns#Pattern 1: Multi-Engine Lakehouse|Pattern 1: Multi-Engine Lakehouse]]
-	- [[#🏗️ Hybrid Architecture Patterns#Pattern 2: Speed Layer Architecture|Pattern 2: Speed Layer Architecture]]
-	- [[#🏗️ Hybrid Architecture Patterns#Pattern 3: ML-focused Pipeline|Pattern 3: ML-focused Pipeline]]
-	- [[#🏗️ Hybrid Architecture Patterns#Pattern 4: Cost-Optimized Cloud|Pattern 4: Cost-Optimized Cloud]]
-- [[#🔄 Migration Strategy: від Spark до альтернатив|🔄 Migration Strategy: від Spark до альтернатив]]
-	- [[#🔄 Migration Strategy: від Spark до альтернатив#Поетапна міграція|Поетапна міграція]]
-	- [[#🔄 Migration Strategy: від Spark до альтернатив#Compatibility Matrix для міграції|Compatibility Matrix для міграції]]
-- [[#⚡ Performance Benchmarks (орієнтовні)|⚡ Performance Benchmarks (орієнтовні)]]
-	- [[#⚡ Performance Benchmarks (орієнтовні)#Batch Processing (1TB data)|Batch Processing (1TB data)]]
-	- [[#⚡ Performance Benchmarks (орієнтовні)#Streaming Latency|Streaming Latency]]
-	- [[#⚡ Performance Benchmarks (орієнтовні)#SQL Query Performance (100GB data)|SQL Query Performance (100GB data)]]
-- [[#🎯 Коли використовувати кожну технологію|🎯 Коли використовувати кожну технологію]]
-	- [[#🎯 Коли використовувати кожну технологію#✅ Залишайтесь з Spark коли:|✅ Залишайтесь з Spark коли:]]
-	- [[#🎯 Коли використовувати кожну технологію#🔄 Варто розглянути альтернативи коли:|🔄 Варто розглянути альтернативи коли:]]
-- [[#🗺️ Technology Roadmap & Trends|🗺️ Technology Roadmap & Trends]]
-	- [[#🗺️ Technology Roadmap & Trends#📈 Зростаючі технології (2024-2025)|📈 Зростаючі технології (2024-2025)]]
-	- [[#🗺️ Technology Roadmap & Trends#📉 Технології що занепадають|📉 Технології що занепадають]]
-	- [[#🗺️ Technology Roadmap & Trends#🔮 Майбутні тренди|🔮 Майбутні тренди]]
-- [[#📋 Decision Framework|📋 Decision Framework]]
-	- [[#📋 Decision Framework#Питання для self-assessment:|Питання для self-assessment:]]
-	- [[#📋 Decision Framework#Decision Tree:|Decision Tree:]]
-- [[#📚 Рекомендовані ресурси для поглибленого вивчення|📚 Рекомендовані ресурси для поглибленого вивчення]]
-	- [[#📚 Рекомендовані ресурси для поглибленого вивчення#Офіційна документація|Офіційна документація]]
-	- [[#📚 Рекомендовані ресурси для поглибленого вивчення#Benchmarks & Comparisons|Benchmarks & Comparisons]]
-	- [[#📚 Рекомендовані ресурси для поглибленого вивчення#Community & Learning|Community & Learning]]
+**Table Of Content**
+
+- [🔧 Основні варіанти розгортання Apache Spark](#-%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%96-%D0%B2%D0%B0%D1%80%D1%96%D0%B0%D0%BD%D1%82%D0%B8-%D1%80%D0%BE%D0%B7%D0%B3%D0%BE%D1%80%D1%82%D0%B0%D0%BD%D0%BD%D1%8F-apache-spark)
+- [💰 TCO (Total Cost of Ownership) Порівняння](#-tco-total-cost-of-ownership-%D0%9F%D0%BE%D1%80%D1%96%D0%B2%D0%BD%D1%8F%D0%BD%D0%BD%D1%8F)
+- [📊 Рекомендації за обсягом даних](#-%D0%A0%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D1%96%D1%97-%D0%B7%D0%B0-%D0%BE%D0%B1%D1%81%D1%8F%D0%B3%D0%BE%D0%BC-%D0%B4%D0%B0%D0%BD%D0%B8%D1%85)
+- [👥 Рекомендації за навичками команди](#-%D0%A0%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D1%96%D1%97-%D0%B7%D0%B0-%D0%BD%D0%B0%D0%B2%D0%B8%D1%87%D0%BA%D0%B0%D0%BC%D0%B8-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B8)
+- [🧩 Де може стояти Spark у архітектурі системи?](#-%D0%94%D0%B5-%D0%BC%D0%BE%D0%B6%D0%B5-%D1%81%D1%82%D0%BE%D1%8F%D1%82%D0%B8-spark-%D1%83-%D0%B0%D1%80%D1%85%D1%96%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%96-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B8)
+	- [1. **Data Ingestion & ETL**](#1-data-ingestion--etl)
+	- [2. **Batch Analytics Pipeline**](#2-batch-analytics-pipeline)
+	- [3. **Streaming Architecture**](#3-streaming-architecture)
+	- [4. **Lakehouse Pattern**](#4-lakehouse-pattern)
+	- [5. **ML Pipeline Integration**](#5-ml-pipeline-integration)
+- [🔁 Альтернативи Apache Spark: повний огляд](#-%D0%90%D0%BB%D1%8C%D1%82%D0%B5%D1%80%D0%BD%D0%B0%D1%82%D0%B8%D0%B2%D0%B8-apache-spark-%D0%BF%D0%BE%D0%B2%D0%BD%D0%B8%D0%B9-%D0%BE%D0%B3%D0%BB%D1%8F%D0%B4)
+	- [🟠 Universal Compute Engines](#-universal-compute-engines)
+	- [🟡 Streaming Specialists](#-streaming-specialists)
+	- [🟢 OLAP & Analytics Engines](#-olap--analytics-engines)
+	- [🆕 Emerging Technologies](#-emerging-technologies)
+- [🔗 Ecosystem Integration Matrix](#-ecosystem-integration-matrix)
+- [🏗️ Hybrid Architecture Patterns](#-hybrid-architecture-patterns)
+	- [Pattern 1: Multi-Engine Lakehouse](#pattern-1-multi-engine-lakehouse)
+	- [Pattern 2: Speed Layer Architecture](#pattern-2-speed-layer-architecture)
+	- [Pattern 3: ML-focused Pipeline](#pattern-3-ml-focused-pipeline)
+	- [Pattern 4: Cost-Optimized Cloud](#pattern-4-cost-optimized-cloud)
+- [🔄 Migration Strategy: від Spark до альтернатив](#-migration-strategy-%D0%B2%D1%96%D0%B4-spark-%D0%B4%D0%BE-%D0%B0%D0%BB%D1%8C%D1%82%D0%B5%D1%80%D0%BD%D0%B0%D1%82%D0%B8%D0%B2)
+	- [Поетапна міграція](#%D0%9F%D0%BE%D0%B5%D1%82%D0%B0%D0%BF%D0%BD%D0%B0-%D0%BC%D1%96%D0%B3%D1%80%D0%B0%D1%86%D1%96%D1%8F)
+	- [Compatibility Matrix для міграції](#compatibility-matrix-%D0%B4%D0%BB%D1%8F-%D0%BC%D1%96%D0%B3%D1%80%D0%B0%D1%86%D1%96%D1%97)
+- [⚡ Performance Benchmarks (орієнтовні)](#-performance-benchmarks-%D0%BE%D1%80%D1%96%D1%94%D0%BD%D1%82%D0%BE%D0%B2%D0%BD%D1%96)
+	- [Batch Processing (1TB data)](#batch-processing-1tb-data)
+	- [Streaming Latency](#streaming-latency)
+	- [SQL Query Performance (100GB data)](#sql-query-performance-100gb-data)
+- [🎯 Коли використовувати кожну технологію](#-%D0%9A%D0%BE%D0%BB%D0%B8-%D0%B2%D0%B8%D0%BA%D0%BE%D1%80%D0%B8%D1%81%D1%82%D0%BE%D0%B2%D1%83%D0%B2%D0%B0%D1%82%D0%B8-%D0%BA%D0%BE%D0%B6%D0%BD%D1%83-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%8E)
+	- [✅ Залишайтесь з Spark коли:](#-%D0%97%D0%B0%D0%BB%D0%B8%D1%88%D0%B0%D0%B9%D1%82%D0%B5%D1%81%D1%8C-%D0%B7-spark-%D0%BA%D0%BE%D0%BB%D0%B8)
+	- [🔄 Варто розглянути альтернативи коли:](#-%D0%92%D0%B0%D1%80%D1%82%D0%BE-%D1%80%D0%BE%D0%B7%D0%B3%D0%BB%D1%8F%D0%BD%D1%83%D1%82%D0%B8-%D0%B0%D0%BB%D1%8C%D1%82%D0%B5%D1%80%D0%BD%D0%B0%D1%82%D0%B8%D0%B2%D0%B8-%D0%BA%D0%BE%D0%BB%D0%B8)
+- [🗺️ Technology Roadmap & Trends](#-technology-roadmap--trends)
+	- [📈 Зростаючі технології (2024-2025)](#-%D0%97%D1%80%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%87%D1%96-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%97-2024-2025)
+	- [📉 Технології що занепадають](#-%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%97-%D1%89%D0%BE-%D0%B7%D0%B0%D0%BD%D0%B5%D0%BF%D0%B0%D0%B4%D0%B0%D1%8E%D1%82%D1%8C)
+	- [🔮 Майбутні тренди](#-%D0%9C%D0%B0%D0%B9%D0%B1%D1%83%D1%82%D0%BD%D1%96-%D1%82%D1%80%D0%B5%D0%BD%D0%B4%D0%B8)
+- [📋 Decision Framework](#-decision-framework)
+	- [Питання для self-assessment:](#%D0%9F%D0%B8%D1%82%D0%B0%D0%BD%D0%BD%D1%8F-%D0%B4%D0%BB%D1%8F-self-assessment)
+	- [Decision Tree:](#decision-tree)
+- [📚 Рекомендовані ресурси для поглибленого вивчення](#-%D0%A0%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D1%96-%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%B3%D0%BB%D0%B8%D0%B1%D0%BB%D0%B5%D0%BD%D0%BE%D0%B3%D0%BE-%D0%B2%D0%B8%D0%B2%D1%87%D0%B5%D0%BD%D0%BD%D1%8F)
+	- [Офіційна документація](#%D0%9E%D1%84%D1%96%D1%86%D1%96%D0%B9%D0%BD%D0%B0-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D1%96%D1%8F)
+	- [Benchmarks & Comparisons](#benchmarks--comparisons)
+	- [Community & Learning](#community--learning)
+
 
 ---
 # DE Blended 1: Apache Spark та Альтернативи (Розширена версія)
