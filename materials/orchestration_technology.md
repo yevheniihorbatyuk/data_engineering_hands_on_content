@@ -778,15 +778,15 @@ Anonymization Service → Вихідні агрегати
 
 ## 📚 Ресурси для поглибленого вивчення
 
+---
 ### Офіційна документація:
 
-- **Apache Airflow:** airflow.apache.org (гайд start, Best Practices, Security розділи)
-- **Prefect:** docs.prefect.io (особливо розділи про Deployment, Blocks)
-- **Luigi:** luigi.readthedocs.io (єдиний ресурс, враховуючи меншу активність)
-- **Dagster:** docs.dagster.io (звернути увагу на Software-Defined Assets)
-- **Argo Workflows:** argoproj.github.io (має приклади YAML для різних випадків)
-- **Kubeflow Pipelines:** www.kubeflow.org (розділ pipelines, + туторіали від Google)
-
+* **[Apache Airflow](https://airflow.apache.org/)** (рекомендується звернути увагу на розділи "Getting Started," "Best Practices" та "Security")
+* **[Prefect](https://docs.prefect.io/)** (особливо корисні розділи "Deployment" та "Blocks")
+* **[Luigi](https://luigi.readthedocs.io/)** (основний ресурс, оскільки проект менш активний)
+* **[Dagster](https://docs.dagster.io/)** (варто вивчити розділ "Software-Defined Assets")
+* **[Argo Workflows](https://argoproj.github.io/)** (містить корисні приклади YAML-файлів для різних сценаріїв)
+* **[Kubeflow Pipelines](https://www.kubeflow.org/)** (зверніть увагу на розділ "Pipelines" та офіційні туторіали від Google)
 ### Спільноти та обговорення:
 
 - **Stack Overflow** – пошук за тегами [apache-airflow], [prefect], [dagster]...

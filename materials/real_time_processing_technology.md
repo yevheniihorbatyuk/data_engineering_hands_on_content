@@ -11,148 +11,55 @@
 | **Materialize** | Incremental SQL | Мілісекунди | 🟢 Низька | 🟡 Молода | Real-time analytics |
 | **RisingWave** | Streaming SQL | Мілісекунди | 🟢 Низька | 🟡 Нова | PostgreSQL-compatible |
 
-## 🏗️ Архітектурні позиції в системі
-### 1. Real-time ETL Pipeline
-
-```mermaid
-graph LR
-    subgraph "Джерела Даних"
-        A[Kafka/Kinesis streams]
-        B[Database CDC streams]
-        C[Application events]
-        D[IoT sensor data]
-    end
-
-    subgraph "ETL Процес"
-        E[Streaming Engine]
-        F[Transformations]
-        G[Target Systems]
-    end
-
-    A --> E
-    B --> E
-    C --> E
-    D --> E
-    E --> F --> G
-
-    style E fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#bbf,stroke:#333,stroke-width:2px
-```
-
 ---
+## 🏗️ Архітектурні позиції в системі
+
+### 1. Real-time ETL Pipeline
+```
+Data Sources → Streaming Engine → Transformations → Target Systems
+├── Kafka/Kinesis streams
+├── Database CDC streams  
+├── Application events
+└── IoT sensor data
+```
 
 ### 2. Event-driven Architecture
-
-```mermaid
-graph LR
-    subgraph "Основний Потік"
-        A[Microservices] --> B[Event Bus]
-        B --> C[Stream Processors]
-        C --> D[Actions]
-    end
-
-    subgraph "Сценарії Використання"
-        E[Business events processing]
-        F[Saga pattern implementation]
-        G[CQRS event sourcing]
-        H[Real-time notifications]
-    end
-
-    C --> E
-    C --> F
-    C --> G
-    C --> H
-
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
 ```
-
----
+Microservices → Event Bus → Stream Processors → Actions
+├── Business events processing
+├── Saga pattern implementation
+├── CQRS event sourcing
+└── Real-time notifications
+```
 
 ### 3. ML Feature Pipeline
-
-```mermaid
-graph LR
-    subgraph "Підготовка Даних"
-        A[Raw Events] --> B[Feature Engineering]
-        B --> C[Feature Store]
-    end
-
-    subgraph "Використання в ML"
-        D[ML Models]
-        E[Real-time feature computation]
-        F[Model inference pipelines]
-        G[A/B testing streams]
-        H[Personalization engines]
-    end
-
-    C --> D
-    D --> E
-    D --> F
-    D --> G
-    D --> H
-
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
 ```
-
----
+Raw Events → Feature Engineering → Feature Store → ML Models
+├── Real-time feature computation
+├── Model inference pipelines
+├── A/B testing streams
+└── Personalization engines
+```
 
 ### 4. Real-time Analytics
+```
+Application Data → Stream Processor → Aggregations → Dashboards
+├── Live metrics calculation
+├── Real-time reporting
+├── Operational monitoring
+└── Business intelligence
+```
 
-```mermaid
-graph LR
-    subgraph "Обробка Даних"
-        A[Application Data] --> B[Stream Processor]
-        B --> C[Aggregations]
-    end
-
-    subgraph "Візуалізація та Моніторинг"
-        D[Dashboards]
-        E[Live metrics calculation]
-        F[Real-time reporting]
-        G[Operational monitoring]
-        H[Business intelligence]
-    end
-
-    C --> D
-    D --> E
-    D --> F
-    D --> G
-    D --> H
-
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
+### 5. Complex Event Processing
+```
+Multiple Streams → Pattern Detection → Business Rules → Actions
+├── Fraud detection
+├── Anomaly detection
+├── Workflow automation
+└── Alert systems
 ```
 
 ---
-
-### 5. Complex Event Processing (CEP)
-```mermaid
-graph LR
-    subgraph "Аналіз Подій"
-        A[Multiple Streams] --> B[Pattern Detection]
-        B --> C[Business Rules]
-    end
-
-    subgraph "Реакції та Дії"
-        D[Actions]
-        E[Fraud detection]
-        F[Anomaly detection]
-        G[Workflow automation]
-        H[Alert systems]
-    end
-
-    C --> D
-    D --> E
-    D --> F
-    D --> G
-    D --> H
-
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-```
-
 ## 📋 Детальний аналіз технологій
 
 ### 1. Apache Spark Structured Streaming
@@ -680,39 +587,29 @@ Application Logs → Logstash → Kafka → Materialize → Dashboard
 
 ## 🔮 Майбутні тенденції (2025-2027)
 
-### Serverless Streaming
-**Тенденція**: Event-driven, pay-per-event моделі
+### **Serverless Streaming**
+- **Тенденція**: Перехід до **event-driven** моделей з оплатою за подію, що значно спрощує розгортання та керування.
+- **Приклади технологій**: AWS Kinesis Analytics Serverless, Google Cloud Dataflow Prime, Azure Stream Analytics.
+- **Вплив**: Зменшує операційні витрати та оптимізує вартість.
 
-**Технології:**
-- AWS Kinesis Analytics Serverless
-- Google Cloud Dataflow Prime
-- Azure Stream Analytics
+---
+### **AI-Enhanced Stream Processing**
+- **Тенденція**: Інтеграція **машинного навчання** для оптимізації потокових пайплайнів.
+- **Можливості**: Автоматичне налаштування параметрів, прогнозоване масштабування та виявлення аномалій у потоках даних.
 
-**Вплив**: Зменшення operational overhead, cost optimization
+---
+### **Real-time Feature Stores**
+- **Тенденція**: **Streaming feature engineering** — інженерія ознак відбувається безпосередньо в потоці даних.
+- **Приклади технологій**: Feast, Tecton та інші рішення з інтеграцією Feature Store.
+- **Вплив**: Покращує інтеграцію між потоковою обробкою та машинним навчанням.
 
-### AI-Enhanced Stream Processing
-**Тенденція**: ML-driven оптимізація pipelines
+---
+### **Edge Computing Integration**
+- **Тенденція**: Обробка даних **безпосередньо на периферійних пристроях**.
+- **Виклики**: Обмеженість ресурсів та нестабільність підключення.
+- **Рішення**: Використання легких середовищ виконання та оптимізованих для периферії рушіїв.
 
-**Можливості:**
-- Автоматичне налаштування параметрів
-- Predictive scaling
-- Anomaly detection в pipelines
-
-### Real-time Feature Stores
-**Тенденція**: Streaming feature engineering
-
-**Технології**: Feast, Tecton, Feature Store integrations
-
-**Вплив**: Ближча інтеграція streaming + ML
-
-### Edge Computing Integration
-**Тенденція**: Stream processing на edge devices
-
-**Challenges**: Resource constraints, connectivity
-
-**Solutions**: Lightweight runtimes, edge-optimized engines
-
-
+---
 ## 🏆 Фінальні рекомендації
 
 ### За типом організації
@@ -735,7 +632,7 @@ Application Logs → Logstash → Kafka → Materialize → Dashboard
 - Enterprise support доступна
 - Можливість hybrid architectures
 
-###  use case
+###  USE CASE
 
 | Use Case | Primary Choice | Backup Choice | Reasoning |
 |----------|---------------|---------------|-----------|
@@ -795,12 +692,15 @@ Application Logs → Logstash → Kafka → Materialize → Dashboard
 ## 📚 Ресурси для поглибленого вивчення
 
 ### Офіційна документація
-- **Flink**: flink.apache.org
-- **Kafka Streams**: kafka.apache.org/documentation/streams
-- **Bytewax**: bytewax.io/docs
-- **Spark**: spark.apache.org/streaming
-- **Materialize**: materialize.com/docs
-- **RisingWave**: docs.risingwave.com
+
+- [Apache Flink](https://flink.apache.org/)
+- [Kafka Streams](https://kafka.apache.org/documentation/streams)
+- [Bytewax](https://bytewax.io/docs)
+- [Apache Spark](https://spark.apache.org/streaming/)
+- [Materialize](https://materialize.com/docs)
+- [RisingWave](https://docs.risingwave.com/)
+
+---
 
 
 ## 🛠️ Tooling та Ecosystem
