@@ -358,20 +358,35 @@ Cloud-native streaming database, що надає PostgreSQL-compatible інте�
 ## 🎯 Framework для прийняття рішення
 
 ### Decision Tree
-```
-Тип команди?
-├─ Data Scientists/Analysts
-│  ├─ Python skills? → Bytewax
-│  ├─ SQL preference? → Materialize / RisingWave
-│  └─ ML focus? → Bytewax
-├─ Java/Scala Developers
-│  ├─ Kafka usage? → Kafka Streams
-│  ├─ Low latency critical? → Flink
-│  └─ Enterprise requirements? → Flink
-└─ Mixed Team
-   ├─ Existing Spark? → Spark Structured Streaming
-   ├─ Cloud-first? → Materialize / RisingWave
-   └─ Microservices? → Kafka Streams
+```mermaid
+flowchart LR
+    A[Тип команди?]
+
+    A --> B[Data Scientists / Analysts]
+    A --> C[Java / Scala Developers]
+    A --> D[Mixed Team]
+
+    B --> B1{Python skills?}
+    B1 -->|Так| B2[Bytewax]
+    B --> B3{SQL preference?}
+    B3 -->|Так| B4[Materialize / RisingWave]
+    B --> B5{ML focus?}
+    B5 -->|Так| B6[Bytewax]
+
+    C --> C1{Kafka usage?}
+    C1 -->|Так| C2[Kafka Streams]
+    C --> C3{Low latency critical?}
+    C3 -->|Так| C4[Flink]
+    C --> C5{Enterprise requirements?}
+    C5 -->|Так| C6[Flink]
+
+    D --> D1{Existing Spark?}
+    D1 -->|Так| D2[Spark Structured Streaming]
+    D --> D3{Cloud-first?}
+    D3 -->|Так| D4[Materialize / RisingWave]
+    D --> D5{Microservices?}
+    D5 -->|Так| D6[Kafka Streams]
+
 ```
 
 ### Матриця вибору за вимогами
